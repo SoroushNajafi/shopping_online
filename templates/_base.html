@@ -7,7 +7,11 @@
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
 <body>
-
+{% if user.is_authenticated %}
+    <p>Hello {{ user.username }} | <a href="{% url 'account_logout' %}">Logout</a></p>
+{% else %}
+    <p><a href="{% url 'account_login' %}">Login</a> | <a href="{% url 'account_signup' %}">Signup</a></p>
+{% endif %}
 {% block content %}
 {% endblock %}
 
