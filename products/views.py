@@ -9,7 +9,7 @@ from .forms import CommentForm
 class ProductListView(ListView):
     # model = Product
     queryset = Product.objects.filter(active=True)
-    template_name = 'products/prodcust_list.html'
+    template_name = 'products/product_list.html'
     context_object_name = 'products'
 
 
