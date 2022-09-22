@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
 from .models import Product, Comment
 from .forms import CommentForm
@@ -37,6 +38,7 @@ class CommentCreateView(CreateView):
         product_id = int(self.kwargs['product_id'])
         product = get_object_or_404(Product, id=product_id)
         obj.product = product
+        messages.success(self.request, 'comment posted')
 
         return super().form_valid(form)
 
