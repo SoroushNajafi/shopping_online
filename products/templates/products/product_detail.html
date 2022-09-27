@@ -3,10 +3,11 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block page_title %}
-    Products Detail
+    Product Detail
 {% endblock %}
 
 {% block content %}
+    {% include 'main_banner.html' with banner_title=product.title  %}
 
     <!-- ***** Product Area Starts ***** -->
     <section class="section" id="product">
@@ -20,8 +21,8 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="right-content">
-                        <h4>{{ product.title }}</h4>
-                        <span class="price">${{ product.price }}</span>
+                        <h4>{{ product.title|capfirst }}</h4>
+                        <span class="price text-dark">${{ product.price }}</span>
                         <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
@@ -29,27 +30,34 @@
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                         </ul>
-                        <span>{{ product.description }}</span>
-                        <div class="quantity-content">
-                            <div class="left-content">
-                                <h6>No. of Orders</h6>
-                            </div>
-                            <div class="right-content">
-                                <div class="quantity buttons_added">
-                                    <input type="button" value="-" class="minus"><input type="number" step="1" min="1"
-                                                                                        max="" name="quantity" value="1"
-                                                                                        title="Qty"
-                                                                                        class="input-text qty text"
-                                                                                        size="4" pattern=""
-                                                                                        inputmode=""><input
-                                        type="button" value="+" class="plus">
+                        <span>{{ product.description|linebreaks }}</span>
+                        <form action="{% url 'cart:add_to_cart' product.id %}" method="POST">
+                            {% csrf_token %}
+                            <div class="quantity-content">
+                                <div class="left-content">
+                                    <h6 class="text-black-50">No. of Orders</h6>
+                                </div>
+                                <div class="right-content">
+                                    <div class="quantity buttons_added">
+                                        <input type="button" value="-" class="minus"><input type="number" step="1"
+                                                                                            min="1"
+                                                                                            max="30" name="quantity"
+                                                                                            value="1"
+                                                                                            title="Qty"
+                                                                                            class="input-text qty text"
+                                                                                            size="4" pattern=""
+                                                                                            inputmode=""><input
+                                            type="button" value="+" class="plus">
+                                    </div>
+                                </div>
+                                <div class="total">
+                                    <div class="main-border-button mt-1 ml-1">
+                                        <button class="btn-lg btn-dark" type="submit">Add to cart</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="total">
-                            <h4>Total: $210.00</h4>
-                            <div class="main-border-button"><a href="#">Add To Cart</a></div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -69,14 +77,14 @@
                                          width="60"
                                          height="60"/>
                                     <div>
-                                        <h6 class="fw-bold text-dark-50">{{ comment.author.username }}</h6>
+                                        <h6 class="fw-bold text-dark-50">{{ comment.author.username|capfirst }}</h6>
                                         <p class="text-muted small">
                                             Shared publicly - {{ comment.datetime_created }}
                                         </p>
                                     </div>
                                 </div>
                                 <p class="pb-2 ml-4">
-                                    {{ comment.body }}
+                                    {{ comment.body|linebreaks }}
                                 </p>
                             </div>
                             <hr>
@@ -87,10 +95,10 @@
                                 <form action="{% url 'comment_create' product.id %}" method="post">
                                     {% csrf_token %}
                                     {{ comment_form|crispy }}
-                                    <button type="submit" class="btn btn-dark btn-sm">Post comment</button>
+                                    <button type="submit" class="btn btn-dark btn-sm">Post Comment</button>
                                 </form>
                             {% else %}
-                                <p>please <a href="{% url 'account_login' %}" style="color: black"><b>login</b></a> to
+                                <p>please <a href="{% url 'account_login' %}" style="color: black"><b>Login</b></a> to
                                     drop comments</p>
                             {% endif %}
                             {#            <div class="d-flex flex-start w-100">#}

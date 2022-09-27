@@ -8,11 +8,12 @@
 
 {% block content %}
     <h1>Log In</h1>
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Login">
 
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form|crispy}}
-        <input type="submit" value="Login">
-
-    </form>
+        </form>
+    </div>
 {% endblock %}
