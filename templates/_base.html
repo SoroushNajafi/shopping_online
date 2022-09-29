@@ -65,6 +65,7 @@
                         </li>
                         {% endif %}
                         <li class="scroll-to-section"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="scroll-to-section"><a href="{% url 'product_list' %}">Products</a></li>
                         <li class="scroll-to-section"><a href="#men">Men's</a></li>
                         <li class="scroll-to-section"><a href="#women">Women's</a></li>
                         <li class="scroll-to-section"><a href="{% url 'cart:cart_detail' %}" class="fa fa-shopping-cart"><sup
@@ -72,7 +73,6 @@
                         <li class="submenu">
                             <a href="javascript:;">Pages</a>
                             <ul>
-                                <li><a href="{% url 'product_list' %}">Products</a></li>
                                 <li><a href="{% url 'aboutus' %}">About Us</a></li>
                                 <li><a href="{% url 'contactus' %}">Contact Us</a></li>
                             </ul>
