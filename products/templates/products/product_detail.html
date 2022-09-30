@@ -36,7 +36,7 @@
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                         </ul>
-                        <span>{{ product.description|linebreaks }}</span>
+                        <span>{{ product.description|safe }}</span>
                         <form action="{% url 'cart:add_to_cart' product.id %}" method="POST">
                             {% csrf_token %}
                             <div class="quantity-content">

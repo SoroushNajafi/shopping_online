@@ -1,6 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.contrib.auth import get_user_model
+from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -27,7 +28,7 @@ class Product(models.Model):
     # )
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', null=True)
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = RichTextField()
     brand = models.CharField(max_length=200, blank=True)
     # categories = models.CharField(choices=CATEGORIES_CHOICES, max_length=200, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=6)

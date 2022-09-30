@@ -46,12 +46,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #third party apps
     'django.contrib.humanize',
 
     #thirdparty apps
     'crispy_forms',
     'allauth',
     'allauth.account',
+    'ckeditor',
+
     #local apps
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
@@ -155,6 +158,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #media
 MEDIA_URL = '/media/'
