@@ -1,0 +1,83 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block page_title %}
+    Products list by category
+{% endblock %}
+
+{% block content %}
+    {% include 'main_banner.html' with banner_title=category %}
+
+    <!-- ***** Products Area Starts ***** -->
+    <section class="section" id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+{#                    <div class="section-heading">#}
+{#                        <h2>Our Products</h2>#}
+{#                        <span>Check out all of our products.</span>#}
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-lg-4">
+                        <div class="item">
+                            <div class="thumb">
+                                <div class="hover-content">
+                                    <ul>
+{#                                        <li><a href="{% url 'product_detail' product.id %}"><i class="fa fa-eye"></i></a></li>#}
+{#                                        <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>#}
+{#                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>#}
+                                    </ul>
+                                </div>
+                                {% if product.image %}
+
+                                    <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}"
+                                                                                  style="border: 1px solid #000000; padding: 1px "></a>
+
+                                {% endif %}
+                            </div>
+                            <div class="down-content">
+                                <a href="{{ product.get_absolute_url }}"><h4>{{ product.title|capfirst }}</h4></a>
+                                <span>${{ product.price }}</span>
+                                <ul class="stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="col-lg-12">
+                    <div class="pagination">
+                        <ul>
+                            <li>
+                                <a href="#">1</a>
+                            </li>
+                            <li class="active">
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ***** Products Area Ends ***** -->
+
+
+{% endblock %}

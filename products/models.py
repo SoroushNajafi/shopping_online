@@ -14,23 +14,21 @@ class Category(models.Model):
     )
 
     category = models.CharField(choices=CATEGORIES_CHOICES, blank=True, max_length=200)
+    cover = models.ImageField(upload_to='category/category_cover', blank=True)
 
     def __str__(self):
         return self.category
 
+    def get_absolute_url(self):
+        return reverse('by_category', args=[self.pk])
+
 
 class Product(models.Model):
-    # CATEGORIES_CHOICES = (
-    #     ('women', 'women'),
-    #     ('men', 'men'),
-    #     ('kids', 'kids'),
-    #     ('extra', 'accessories')
-    # )
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', null=True)
     title = models.CharField(max_length=200)
     description = RichTextField()
     brand = models.CharField(max_length=200, blank=True)
-    # categories = models.CharField(choices=CATEGORIES_CHOICES, max_length=200, blank=True)
     price = models.DecimalField(decimal_places=2, max_digits=6)
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)

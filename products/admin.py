@@ -27,4 +27,4 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ('category',)
+    fields = ('category', 'cover')

@@ -6,12 +6,14 @@
 {% endblock %}
 
 {% block content %}
+    <br><br><br><br><br>
     <div class="container">
-        <h1>Log Out</h1>
-        <h2>Are you sure you want to log out?</h2>
+        <h5>Log Out</h5>
+        <h6>Are you sure you want to log out?</h6>
+        <br>
         <form action="" method="post">
             {% csrf_token %}
-            <input type="submit" value="Logout">
+            <button class="btn btn-outline-dark" type="submit">Logout</button>
 
         </form>
     </div>
