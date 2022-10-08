@@ -33,7 +33,7 @@ class Product(models.Model):
     datetime_created = models.DateTimeField(auto_now_add=True)
     datetime_modified = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    image = models.ImageField(verbose_name='Product Image', upload_to='product/product_image', blank=True)
+    image = models.ImageField(verbose_name='Product Image', upload_to='product/product_image', null=True)
 
     def __str__(self):
         return self.title
@@ -77,7 +77,7 @@ class Comment(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image_field = models.ImageField(verbose_name='product images', upload_to='product/product_image', blank=True)
+    image_field = models.ImageField(verbose_name='product images', upload_to='product/product_image', null=True)
 
     def __str__(self):
         return self.product.title

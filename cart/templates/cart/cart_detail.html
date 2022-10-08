@@ -27,15 +27,17 @@
                                         {% for item in cart %}
                                             <div class="row mb-4 d-flex justify-content-between align-items-center">
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    {% if item.product_obj.image %}
                                                     <img
-                                                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                                                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                            src="{{ item.product_obj.image.url }}"
+                                                            class="img-fluid rounded-3" style="border: 1px solid #000000; padding: 1px ">
+                                                    {% endif %}
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
 
                                                     <h6 class="text-muted"><a
                                                             href="{{ item.product_obj.get_absolute_url }}"
-                                                            style="color:black;">{{ item.product_obj.title|capfirst }}</a>
+                                                            style="color:black;">{{ item.product_obj.title }}</a>
                                                     </h6>
                                                     <h6 class="text-black mb-0">
                                                         For {{ item.product_obj.category }}</h6>
@@ -63,7 +65,7 @@
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                     <h6 style="color: #5a6268">Total</h6>
-                                                    <h6 class="mb-0">{{ item.total_price|intcomma }} $</h6>
+                                                    <h6 class="mb-0">{{ item.total_price }} $</h6>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <a href="{% url 'cart:cart_remove' item.product_obj.id %}"

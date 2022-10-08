@@ -107,7 +107,9 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
+                                    {% if product.image %}
                                     <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" style="border: 1px solid #000000; padding: 1px "></a>
+                                    {% endif %}
                                 </div>
                                 <div class="down-content">
                                     <h4>{{ product.title|capfirst }}</h4>

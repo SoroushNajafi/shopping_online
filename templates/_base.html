@@ -42,7 +42,7 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="{% url 'home' %}" class="logo">
-                        <img src="{% static 'images/my_logo.png' %}">
+                        <img class="mb-1" src="{% static 'images/my_logo.png' %}">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -99,7 +99,7 @@
 
 <div class="messages">
     {% if messages %}
-        <br>
+        <br><br><br><br><br>
         <div class="container">
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }}">
