@@ -26,6 +26,7 @@ class Cart:
         adding product to cart
         """
         product_id = str(product.id)
+        print(f'product tile:{product.title}')
 
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': 0}
@@ -33,8 +34,10 @@ class Cart:
             self.cart[product_id]['quantity'] = quantity
         else:
             self.cart[product_id]['quantity'] += quantity
-        messages.success(self.request, 'Product successfully added to cart')
+            print(f"quantity added:{self.cart[product_id]['quantity']}")
 
+        print(f'length of cart:{len(self.cart)}')
+        messages.success(self.request, 'Product successfully added to cart')
         self.save()
 
     def remove(self, product):
