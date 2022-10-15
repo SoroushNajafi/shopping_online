@@ -5,7 +5,7 @@
 
     {% for item in cart %}
         <div class="container">
-            <h5 class="text-uppercase"><a
+            <h5><a
                     href="{{ item.product_obj.get_absolute_url }}"
                     style="color: black">{{ item.product_obj.title }}</a></h5>
             <span><b>{{ item.quantity }}</b> <i
@@ -15,7 +15,7 @@
     {% endfor %}
 
     <div class="d-flex justify-content-between mb-5">
-        <h5 class="text-uppercase">Total price</h5>
+        <h5>Total</h5>
         <h5>{{ cart.get_total_price|intcomma }} $</h5>
     </div>
 

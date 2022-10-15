@@ -37,7 +37,7 @@
 
                                                     <h6 class="text-muted"><a
                                                             href="{{ item.product_obj.get_absolute_url }}"
-                                                            style="color:black;">{{ item.product_obj.title }}</a>
+                                                            style="color:black;">{{ item.product_obj.title|capfirst }}</a>
                                                     </h6>
                                                     <h6 class="text-black mb-0">
                                                         For {{ item.product_obj.category }}</h6>
@@ -65,7 +65,7 @@
                                                 </div>
                                                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                     <h6 style="color: #5a6268">Total</h6>
-                                                    <h6 class="mb-0">{{ item.total_price }} $</h6>
+                                                    <h6 class="mb-0">{{ item.total_price|intcomma }} $</h6>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                                     <a href="{% url 'cart:cart_remove' item.product_obj.id %}"

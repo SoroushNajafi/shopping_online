@@ -22,7 +22,6 @@ def cart_detail_view(request):
 @require_POST
 def add_to_cart_view(request, product_id):
     cart = Cart(request)
-
     product = get_object_or_404(Product, id=product_id)
     form = AddToCartForm(request.POST)
 
@@ -31,6 +30,7 @@ def add_to_cart_view(request, product_id):
         quantity = cleaned_data['quantity']
         cart.add(product, quantity, replace_current_quantity=cleaned_data['inplace'])
 
+    print(form.errors)
     return redirect('cart:cart_detail')
 
 

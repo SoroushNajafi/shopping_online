@@ -3,11 +3,13 @@ from django.views.generic import TemplateView, ListView
 
 from products.models import Category
 
+from .forms import SubscribeForm
+
 
 class HomePageView(ListView):
     model = Category
     queryset = Category.objects.all()
-    template_name = 'home.html'
+    template_name = 'pages/home.html'
     context_object_name = 'categories'
 
 

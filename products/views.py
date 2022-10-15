@@ -10,6 +10,7 @@ from .forms import CommentForm
 class ProductsByCategoryView(ListView):
 
     template_name = 'products/products_by_category.html'
+    paginate_by = 3
 
     def get_queryset(self):
         category_id = int(self.kwargs['category_id'])
