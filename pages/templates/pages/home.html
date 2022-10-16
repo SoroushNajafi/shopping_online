@@ -34,13 +34,12 @@
                                 <div class="right-first-image">
                                     <div class="thumb">
                                         <div class="inner-content">
-                                            <h4>{{ category }}</h4>
-                                            <span>Best of {{ category }}</span>
+                                            <h4>{{ category|capfirst }}</h4>
+                                            <span>Best of {{ category|capfirst }}</span>
                                         </div>
                                         <div class="hover-content">
                                             <div class="inner">
-                                                <h4>{{ category }}</h4>
-                                                <p>Discover our products for {{ category }}.</p>
+                                                <h4>{{ category|capfirst }}</h4>
                                                 <div class="main-border-button">
                                                     <a href="{{ category.get_absolute_url }}">Discover More</a>
                                                 </div>
@@ -72,7 +71,7 @@
                         <h3>By Subscribing To Our Newsletter You Can Get 30% Off</h3>
                         <span>Easy shopping with discount. Go ahead and subscribe.</span>
                     </div>
-                    <form id="subscribe" action="" method="post">
+                    <form id="subscribe" action="{% url 'subscribe' %}" method="post">
                         {% csrf_token %}
                         <div class="row">
                           <div class="col-lg-5">

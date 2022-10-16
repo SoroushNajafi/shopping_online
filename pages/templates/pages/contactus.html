@@ -23,6 +23,7 @@
                         <span>Reach out to our team for our services </span>
                     </div>
                     <form id="contact" action="" method="post">
+                        {% csrf_token %}
                         <div class="row">
                           <div class="col-lg-6">
                             <fieldset>
@@ -50,6 +51,4 @@
         </div>
     </div>
     <!-- ***** Contact Area Ends ***** -->
-
-    {% include 'subscribe.html' %}
 {% endblock %}

@@ -7,7 +7,8 @@
                         <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
                         <span>Sourishops makes it different.</span>
                     </div>
-                    <form id="subscribe" action="" method="get">
+                    <form id="subscribe" action="{% url 'subscribe' %}" method="post">
+                        {% csrf_token %}
                         <div class="row">
                           <div class="col-lg-5">
                             <fieldset>

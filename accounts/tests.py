@@ -55,13 +55,15 @@ class SignUpPageTest(TestCase):
         self.assertTemplateUsed(response, 'account/signup.html')
 
     def test_sign_up_redirect(self):
-        response = self.client.post('/accounts/signup/', {'username': 'sample',
-                                                          'password1': 'pass1234sample',
+        response = self.client.post('/accounts/signup/', {'password1': 'pass1234sample',
                                                           'password2': 'pass1234sample',
                                                           'email': 'sample_email@sample.com'})
 
         # with open('output.html', 'w') as f:
         #     f.write(response.content.decode('utf-8'))
+        self.assertEqual(get_user_model().objects.all().count(), 1)
+        self.assertEqual(get_user_model().objects.all()[0].email, 'sample_email@sample.com')
+        self.assertEqual(get_user_model().objects.all()[0].username, 'sample_email')
 
         self.assertRedirects(response, reverse('home'))
 
