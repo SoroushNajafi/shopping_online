@@ -74,7 +74,7 @@
                             <a href="javascript:;"><i class="fa fa-user-circle-o"></i></a>
                             <ul>
                                 <li><a href="{% url 'account_logout' %}">Logout</a></li>
-                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">"{{ user.username|capfirst }}" Profile</a></li>
                                 <li><a href="{% url 'account_change_password' %}">change password</a></li>
                             </ul>
                         </li>

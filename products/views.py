@@ -1,14 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 
 from .models import Product, Comment, Category
 from .forms import CommentForm
 
 
 class ProductsByCategoryView(ListView):
-
     template_name = 'products/products_by_category.html'
     paginate_by = 3
 
@@ -45,12 +46,11 @@ class ProductDetailView(DetailView):
         return context
 
 
-class CommentCreateView(CreateView):
+class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
 
     def form_valid(self, form):
-
         obj = form.save(commit=False)
 
         obj.author = self.request.user
@@ -63,3 +63,47 @@ class CommentCreateView(CreateView):
         return super().form_valid(form)
 
 
+class CommentDeleteView(UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'products/comment_delete.html'
+    pk_url_kwarg = 'comment_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment_id = int(self.kwargs['comment_id'])
+        comment = get_object_or_404(Comment, id=comment_id)
+        product_id = comment.product.id
+        product = get_object_or_404(Product, id=product_id)
+        context['product'] = product
+        return context
+
+    def get_success_url(self):
+        comment_id = int(self.kwargs['comment_id'])
+        comment = get_object_or_404(Comment, id=comment_id)
+        product_id = comment.product.id
+        messages.success(self.request, 'comment deleted successfully')
+        return reverse_lazy('product_detail', args=[product_id])
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+
+class CommentUpdateView(UserPassesTestMixin, UpdateView):
+    model = Comment
+    template_name = 'products/comment_update.html'
+    fields = ['body', 'stars']
+    pk_url_kwarg = 'comment_id'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comment_id = int(self.kwargs['comment_id'])
+        comment = get_object_or_404(Comment, id=comment_id)
+        product_id = comment.product.id
+        product = get_object_or_404(Product, id=product_id)
+        context['product'] = product
+        return context

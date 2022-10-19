@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'main_banner.html' with banner_title=product.title  %}
+    {% include 'main_banner.html' with banner_title=product.title %}
 
     <!-- ***** Product Area Starts ***** -->
     <section class="section" id="product">
@@ -15,12 +15,12 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="left-images">
-                    {% if product.image %}
-                        <img src="{{ product.image.url }}" style="border: 1px solid #000000; padding: 1px ">
-                    {% endif %}
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" style="border: 1px solid #000000; padding: 1px ">
+                        {% endif %}
                         {% for image in product.images.all %}
                             {% if product.images %}
-                        <img src="{{ image.image_field.url }}" style="border: 1px solid #000000; padding: 1px ">
+                                <img src="{{ image.image_field.url }}" style="border: 1px solid #000000; padding: 1px ">
                             {% endif %}
                         {% endfor %}
                     </div>
@@ -93,6 +93,14 @@
                                 <p class="pb-2 ml-4">
                                     {{ comment.body|linebreaks }}
                                 </p>
+                                {% if comment.author == user %}
+                                    <a href="{% url 'comment_delete' comment.id %}">
+                                        <button class="btn btn-dark">Delete</button>
+                                    </a>
+                                    <a href="{% url 'comment_update' comment.id %}">
+                                        <button class="btn btn-dark">Edit</button>
+                                    </a>
+                                {% endif %}
                             </div>
                             <hr>
                         {% endfor %}
