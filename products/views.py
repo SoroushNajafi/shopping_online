@@ -67,15 +67,7 @@ class CommentDeleteView(UserPassesTestMixin, DeleteView):
     model = Comment
     template_name = 'products/comment_delete.html'
     pk_url_kwarg = 'comment_id'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        comment_id = int(self.kwargs['comment_id'])
-        comment = get_object_or_404(Comment, id=comment_id)
-        product_id = comment.product.id
-        product = get_object_or_404(Product, id=product_id)
-        context['product'] = product
-        return context
+    context_object_name = 'product'
 
     def get_success_url(self):
         comment_id = int(self.kwargs['comment_id'])
@@ -94,16 +86,8 @@ class CommentUpdateView(UserPassesTestMixin, UpdateView):
     template_name = 'products/comment_update.html'
     fields = ['body', 'stars']
     pk_url_kwarg = 'comment_id'
+    context_object_name = 'product'
 
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        comment_id = int(self.kwargs['comment_id'])
-        comment = get_object_or_404(Comment, id=comment_id)
-        product_id = comment.product.id
-        product = get_object_or_404(Product, id=product_id)
-        context['product'] = product
-        return context
