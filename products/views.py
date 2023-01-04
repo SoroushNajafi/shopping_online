@@ -67,7 +67,7 @@ class CommentDeleteView(UserPassesTestMixin, DeleteView):
     model = Comment
     template_name = 'products/comment_delete.html'
     pk_url_kwarg = 'comment_id'
-    context_object_name = 'product'
+    context_object_name = 'comment'
 
     def get_success_url(self):
         comment_id = int(self.kwargs['comment_id'])
@@ -86,7 +86,7 @@ class CommentUpdateView(UserPassesTestMixin, UpdateView):
     template_name = 'products/comment_update.html'
     fields = ['body', 'stars']
     pk_url_kwarg = 'comment_id'
-    context_object_name = 'product'
+    context_object_name = 'comment'
 
     def test_func(self):
         obj = self.get_object()

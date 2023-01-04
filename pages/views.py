@@ -44,7 +44,7 @@ def subscribe_form_view(request):
     return render(request, 'pages/home.html', {'subscribe_form_errors': subscribe_form_errors})
 
 
-def contact_us_from_view(request):
+def contact_us_form_view(request):
     contact_us_form = ContactUsForm(request.POST)
 
     if contact_us_form.is_valid():
@@ -60,6 +60,6 @@ def contact_us_from_view(request):
         )
         messages.success(request, 'Your message is sent successfully.')
         contact_us_form.save()
-        redirect('home')
+        return redirect('home')
     form_errors = contact_us_form.errors
     return render(request, 'pages/contactus.html', {'form_errors': form_errors})
