@@ -31,10 +31,10 @@ class Cart:
             self.cart[product_id] = {'quantity': 0}
         if replace_current_quantity:
             self.cart[product_id]['quantity'] = quantity
+            messages.success(self.request, 'Product successfully updated.')
         else:
             self.cart[product_id]['quantity'] += quantity
-
-        messages.success(self.request, 'Product successfully added to cart')
+            messages.success(self.request, 'Product successfully added to cart.')
 
         self.save()
 

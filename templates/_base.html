@@ -73,7 +73,7 @@
                         </li>
                         {% if user.is_authenticated %}
                             <li class="submenu">
-                            <a href="javascript:;"><i class="fa fa-user-circle-o"></i></a>
+                            <a href="javascript:;"><i class="fa fa-user-circle"></i></a>
                             <ul>
                                 <li><a href="{% url 'account_logout' %}">Logout</a></li>
                                 <li><a href="#">"{{ user.username|capfirst }}" Profile</a></li>
@@ -176,7 +176,7 @@
         crossorigin="anonymous"></script>
 
 <script text="javascript">
-    setTimeout(fade_out, 3000);
+    setTimeout(fade_out, 5000);
 
     function fade_out() {
         $(".messages").fadeOut().empty();
