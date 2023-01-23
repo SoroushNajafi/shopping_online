@@ -76,6 +76,9 @@
 
                                             <hr class="my-4">
                                         {% endfor %}
+                                    {% if cart %}
+                                        <a href="{% url 'cart:clear_cart' %}"><button type="button" class="btn btn-dark">Clear Cart</button></a>
+                                    {% endif %}
                                         <div class="pt-5">
                                             <h6 class="mb-0"><a href="{% url 'product_list' %}" class="text-body"><i
                                                     class="fa fa-long-arrow-alt-left" style="color: black"></i>Back to
