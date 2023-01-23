@@ -40,7 +40,6 @@ def remove_from_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
 
     cart.remove(product)
-    messages.success(request, 'product removed successfully')
 
     return redirect('cart:cart_detail')
 
