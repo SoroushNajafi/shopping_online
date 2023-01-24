@@ -88,6 +88,13 @@ class CommentUpdateView(UserPassesTestMixin, UpdateView):
     pk_url_kwarg = 'comment_id'
     context_object_name = 'comment'
 
+    def get_success_url(self):
+        comment_id = int(self.kwargs['comment_id'])
+        comment = get_object_or_404(Comment, id=comment_id)
+        product_id = comment.product.id
+        messages.success(self.request, 'comment updated successfully')
+        return reverse_lazy('product_detail', args=[product_id])
+
     def test_func(self):
         obj = self.get_object()
         return obj.author == self.request.user

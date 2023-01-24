@@ -17,10 +17,6 @@ class AboutUsPageView(TemplateView):
     template_name = 'pages/aboutus.html'
 
 
-class ContactUsPageView(TemplateView):
-    template_name = 'pages/contactus.html'
-
-
 def subscribe_form_view(request):
     subscribe_form = SubscribeForm(request.POST)
 
@@ -44,22 +40,27 @@ def subscribe_form_view(request):
     return render(request, 'pages/home.html', {'subscribe_form_errors': subscribe_form_errors})
 
 
-def contact_us_form_view(request):
-    contact_us_form = ContactUsForm(request.POST)
+def contact_us_view(request):
+    if request.method == 'GET':
+        return render(request, 'pages/contactus.html', {'contact_form': ContactUsForm()})
+    else:
 
-    if contact_us_form.is_valid():
-        cleaned_date = contact_us_form.cleaned_data
-        sent_email = cleaned_date['email']
-        sent_name = cleaned_date['name']
-        send_mail(
-            'Thank you for contacting us',
-            f'Hi {sent_name}, you have sent a message to our team, we will reach back to you soon, :-)',
-            None,
-            [sent_email],
-            fail_silently=False,
-        )
-        messages.success(request, 'Your message is sent successfully.')
-        contact_us_form.save()
-        return redirect('home')
+        contact_us_form = ContactUsForm(request.POST)
+
+        if contact_us_form.is_valid():
+            cleaned_date = contact_us_form.cleaned_data
+            sent_email = cleaned_date['email']
+            sent_name = cleaned_date['name']
+            send_mail(
+                'Thank you for contacting us',
+                f'Hi {sent_name}, you have sent a message to our team, we will reach back to you soon, :-)',
+                None,
+                [sent_email],
+                fail_silently=False,
+            )
+            messages.success(request, 'Your message is sent successfully.')
+            contact_us_form.save()
+            return redirect('home')
+
     form_errors = contact_us_form.errors
     return render(request, 'pages/contactus.html', {'form_errors': form_errors})

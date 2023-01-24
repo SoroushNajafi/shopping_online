@@ -22,7 +22,7 @@
                         <h2>Say Hello. Don't Be Shy!</h2>
                         <span>Reach out to our team for our services </span>
                     </div>
-                    <form id="contact" action="{% url 'contactusform' %}" method="post">
+                    <form id="contact" action="{% url 'contactus' %}" method="post">
                         {% csrf_token %}
                         <div class="row">
                           <div class="col-lg-6">

@@ -104,11 +104,13 @@ class ProductsByCategory(TestCase):
 
 class CommentTest(TestCase):
     def setUp(self):
-        category = Category.objects.create(category='women')
+        category = Category.objects.create(category='women',
+                                           cover='media/category/category_cover/baner-right-image-01.jpg')
+
         product = Product.objects.create(category=category, title='Sample title',
                                          description='sample description',
                                          brand='sample brand',
-                                         price=19.99,)
+                                         price=19.99, )
 
         user = CustomUser.objects.create_user(
             username='sample',
@@ -117,7 +119,7 @@ class CommentTest(TestCase):
         )
 
         self.client.post('/accounts/login/', {'password': 'test1234567password',
-                                              'login': 'sample@email.com'})
+                                              'login': 'sample@email.com'}, follow=True)
 
         # self.client.force_login(user) inam ye rah baraye login kardane
 
@@ -127,10 +129,43 @@ class CommentTest(TestCase):
     def test_comment_create(self):
         product_id = self.product.id
         response = self.client.post(f'/products/comment/{product_id}/', {'body': 'sample body',
-                                                                                   'stars': '5'})
+                                                                         'stars': '5'}, follow=True)
+
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'comment posted')
 
         last_comment = Comment.objects.last()
         self.assertEqual(last_comment.body, 'sample body')
         self.assertEqual(last_comment.stars, '5')
         self.assertEqual(last_comment.author, self.user)
         self.assertEqual(last_comment.product, self.product)
+
+    def test_comment_update(self):
+        product_id = self.product.id
+        self.client.post(f'/products/comment/{product_id}/', {'body': 'sample body',
+                                                              'stars': '5'}, follow=True)
+        comment = Comment.objects.all()[0]
+
+        response = self.client.post(reverse('comment_update', args=[comment.id]),
+                                    {'body': 'body_updated', 'stars': '4'}, follow=True)
+
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'comment updated successfully')
+        self.assertEqual(Comment.objects.all()[0].body, 'body_updated')
+
+    def test_comment_delete_view(self):
+        product_id = self.product.id
+        self.client.post(f'/products/comment/{product_id}/', {'body': 'sample body',
+                                                              'stars': '5'}, follow=True)
+
+        comment = Comment.objects.all()[0]
+
+        response = self.client.post(reverse('comment_delete', args=[comment.id]), follow=True)
+
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'comment deleted successfully')
+        self.assertEqual(len(Comment.objects.all()), 0)
+        self.assertNotContains(response, 'sample body')
