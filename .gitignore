@@ -3,3 +3,4 @@ venv/
 staticfiles/
 media/
 static/
+.env
